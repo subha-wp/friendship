@@ -25,6 +25,7 @@ import Link from "next/link";
 import { register } from "./action";
 import { useRouter } from "next/navigation";
 import { Eye, EyeOff, ArrowRight, Lock } from "lucide-react";
+import Image from "next/image";
 
 const schema = z
   .object({
@@ -74,14 +75,18 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen p-4">
-      <Card className="w-full max-w-md overflow-hidden shadow-lg">
-        <CardHeader className="bg-primary text-primary-foreground p-6">
-          <CardTitle className="text-3xl font-bold text-center">
-            Join nextCoder
-          </CardTitle>
+    <div className="flex flex-col items-center justify-center min-h-screen p-4 bg-purple-50">
+      <div>
+        <Image src="/Group.png" height={250} width={250} alt="img" />
+      </div>
+      <p className="text-xl font-bold text-center pb-4">
+        Let’s meeting new <br /> people around you
+      </p>
+      <Card className="w-full max-w-md overflow-hidden shadow-lg border-0 bg-transparent">
+        <CardHeader className="py-0" hidden>
+          <CardTitle hidden>ft</CardTitle>
         </CardHeader>
-        <CardContent className="p-6 space-y-6">
+        <CardContent className="p-4 space-y-6">
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
               <FormField

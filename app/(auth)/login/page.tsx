@@ -25,10 +25,11 @@ import {
 import Link from "next/link";
 import { login } from "./action";
 import { useRouter } from "next/navigation";
-import { Eye, EyeOff, ArrowRight, Phone, Lock } from "lucide-react";
+import { Eye, EyeOff, ArrowRight, Lock, UserRound } from "lucide-react";
+import Image from "next/image";
 
 const schema = z.object({
-  phoneNumber: z.string().min(1, "Phone number is required"),
+  id: z.string().min(1, "id is required"),
   password: z.string().min(8, "Password must be at least 8 characters"),
 });
 
@@ -40,7 +41,7 @@ export default function LoginPage() {
   const form = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
-      phoneNumber: "",
+      id: "",
       password: "",
     },
   });
@@ -49,7 +50,7 @@ export default function LoginPage() {
     try {
       setLoading(true);
       const formData = new FormData();
-      formData.append("phoneNumber", values.phoneNumber);
+      formData.append("id", values.id);
       formData.append("password", values.password);
 
       const result = await login(formData);
@@ -58,7 +59,7 @@ export default function LoginPage() {
         toast.error(result.error);
       } else if (result?.success) {
         toast.success("Login successful! Redirecting...");
-        router.push(result.route);
+        router.push("/");
       }
     } catch (error) {
       toast.error("Something went wrong");
@@ -69,33 +70,34 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen p-4">
-      <Card className="w-full max-w-md overflow-hidden shadow-lg">
-        <CardHeader className="bg-primary text-primary-foreground p-6">
-          <CardTitle className="text-3xl font-bold text-center">
+    <div className="flex flex-col items-center justify-center min-h-screen p-4 bg-purple-50">
+      <div>
+        <Image src="/Group.png" height={250} width={250} alt="img" />
+      </div>
+      <Card className="w-full max-w-md overflow-hidden shadow-lg bg-transparent border-0">
+        <CardHeader className="pb-4">
+          <CardTitle className="text-xl font-bold text-center">
             Welcome Back
           </CardTitle>
         </CardHeader>
-        <CardContent className="p-6 space-y-6">
+        <CardContent className="p-4 space-y-6">
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
               <FormField
                 control={form.control}
-                name="phoneNumber"
+                name="id"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-sm font-medium">
-                      Phone Number
-                    </FormLabel>
+                    <FormLabel className="text-sm font-medium">UID</FormLabel>
                     <FormControl>
                       <div className="relative">
                         <Input
                           {...field}
                           type="tel"
-                          placeholder="Enter your phone number"
+                          placeholder="Enter your UID"
                           className="rounded-full pl-10"
                         />
-                        <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-500" />
+                        <UserRound className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-500" />
                       </div>
                     </FormControl>
                     <FormMessage />

@@ -7,13 +7,13 @@ import { verify } from "@node-rs/argon2";
 import { lucia } from "@/lib/auth";
 
 const loginSchema = z.object({
-  phoneNumber: z.string().min(1, "Phone number is required"),
+  id: z.string().min(1, "id number is required"),
   password: z.string().min(8, "Password must be at least 8 characters"),
 });
 
 export async function login(formData: FormData) {
   const result = loginSchema.safeParse({
-    phoneNumber: formData.get("phoneNumber"),
+    id: formData.get("id"),
     password: formData.get("password"),
   });
 
@@ -21,16 +21,16 @@ export async function login(formData: FormData) {
     return { error: result.error.issues[0].message };
   }
 
-  const { phoneNumber, password } = result.data;
+  const { id, password } = result.data;
 
   try {
     const existingUser = await prisma.user.findFirst({
-      where: { phoneNumber },
-      select: { id: true, hashedPassword: true, role: true },
+      where: { id },
+      select: { id: true, hashedPassword: true },
     });
 
     if (!existingUser) {
-      return { error: "Invalid phone number or password" };
+      return { error: "Invalid Id number or password" };
     }
 
     const validPassword = await verify(existingUser.hashedPassword, password, {
@@ -53,9 +53,7 @@ export async function login(formData: FormData) {
       sessionCookie.attributes
     );
 
-    const route =
-      existingUser.role === "ADMIN" ? "/admin-dashboard" : "/user/courses";
-    return { success: true, route };
+    return { success: true };
   } catch (error) {
     console.error("Login error:", error);
     return { error: "An error occurred during login. Please try again." };
