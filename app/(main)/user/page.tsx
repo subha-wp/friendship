@@ -44,7 +44,7 @@ export default async function UserProfilePage() {
           </div>
           <div>
             <h1 className="text-2xl font-bold text-white">{userName}</h1>
-            <p className="text-white/80">ID: {user.id}</p>
+            <p className="text-white/80">ID: {user?.id}</p>
           </div>
         </div>
       </div>
