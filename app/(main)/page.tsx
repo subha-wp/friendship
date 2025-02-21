@@ -28,6 +28,7 @@ export default async function Home() {
             distance={profile.distance}
             imageUrl={profile.imageUrl}
             matchPercentage={profile.matchPercentage}
+            isSubscribed={user.subscribe}
           />
         ))}
       </div>

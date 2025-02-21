@@ -25,9 +25,6 @@ export default function ProfilePage() {
             <ArrowLeft className="h-6 w-6" />
           </Link>
         </Button>
-        <span className="text-white bg-white/20 backdrop-blur-sm rounded-full px-4 py-2">
-          {profile.distance}
-        </span>
       </div>
 
       {/* Profile Image and Basic Info */}

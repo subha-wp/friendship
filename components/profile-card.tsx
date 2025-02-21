@@ -23,8 +23,8 @@ export function ProfileCard({
   age,
   location,
   imageUrl,
-  matchPercentage = 100,
-  isSubscribed = false,
+  matchPercentage,
+  isSubscribed,
 }: ProfileCardProps) {
   const [isPaymentOpen, setIsPaymentOpen] = useState(false);
 
@@ -43,7 +43,7 @@ export function ProfileCard({
         />
 
         <div className="absolute bottom-0 left-0 z-10 w-full p-2 text-white">
-          <div className="mb-1 text-xl font-semibold">
+          <div className="mb-1 font-semibold">
             {name}, {age}
           </div>
           <div className="text-sm font-medium uppercase tracking-wider text-white/75">

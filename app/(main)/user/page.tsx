@@ -42,6 +42,13 @@ export default async function UserProfilePage() {
           <div>
             <h1 className="text-xl font-bold text-white">{userName}</h1>
             <p className="text-white/80 text-xs">ID: {user?.id}</p>
+            <p
+              className={`w-fit px-2 font-semibold text-sm rounded-2xl ${
+                user?.subscribe ? "bg-green-400" : "bg-red-400"
+              }`}
+            >
+              {user?.subscribe ? "Subscribed" : "Not Subscribed"}
+            </p>
           </div>
         </div>
       </div>
