@@ -36,15 +36,15 @@ export default async function UserProfilePage() {
       {/* User Profile Header */}
       <div className="px-6 py-8">
         <div className="flex items-center gap-4">
-          <div className="h-24 w-24 rounded-full bg-purple-300 flex items-center justify-center text-2xl font-bold text-purple-900">
+          <div className="h-16 w-16 rounded-full bg-purple-300 flex items-center justify-center text-2xl font-bold text-purple-900">
             {userName
               .split(" ")
               .map((n) => n[0])
               .join("")}
           </div>
           <div>
-            <h1 className="text-2xl font-bold text-white">{userName}</h1>
-            <p className="text-white/80">ID: {user?.id}</p>
+            <h1 className="text-xl font-bold text-white">{userName}</h1>
+            <p className="text-white/80 text-xs">ID: {user?.id}</p>
           </div>
         </div>
       </div>
