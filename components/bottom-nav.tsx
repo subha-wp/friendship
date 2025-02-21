@@ -59,9 +59,9 @@ export function BottomNav({ className, ...props }: BottomNavProps) {
         className="text-white hover:bg-purple-500/20"
         asChild
       >
-        <Link href="/groups">
+        <Link href="/user">
           <User className="h-12 w-12" />
-          <span className="sr-only">Groups</span>
+          <span className="sr-only">profile</span>
         </Link>
       </Button>
     </nav>

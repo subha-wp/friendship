@@ -14,13 +14,14 @@ export default async function Home() {
     redirect("/login");
   }
   return (
-    <div className="min-h-screen bg-purple-50 p-4 mb-12 relative">
+    <div className="min-h-screen bg-purple-50 p-4 pb-12 relative">
       <Topnav />
 
       <div className="mx-auto grid max-w-6xl gap-4 grid-cols-2 md:grid-cols-4">
         {profiles.map((profile) => (
           <ProfileCard
             key={profile.id}
+            id={profile.id}
             name={profile.name}
             age={profile.age}
             location={profile.location}

@@ -1,5 +1,4 @@
 import { Metadata } from "next";
-import { ThemeProvider } from "../../providers/theme-provider";
 import { BottomNav } from "../../components/bottom-nav";
 
 export const metadata: Metadata = {
@@ -37,15 +36,8 @@ export default function RootLayout({
 }) {
   return (
     <div className="relative">
-      <ThemeProvider
-        attribute="class"
-        defaultTheme="dark"
-        enableSystem
-        disableTransitionOnChange
-      >
-        {children}
-        <BottomNav />
-      </ThemeProvider>
+      {children}
+      <BottomNav />
     </div>
   );
 }
