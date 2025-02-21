@@ -8,14 +8,15 @@ datasource db {
 }
 
 model User {
-  id             String           @id @default(cuid())
+  id             String    @id @default(cuid())
   name           String?
   hashedPassword String
-  createdAt      DateTime         @default(now())
-  updatedAt      DateTime         @updatedAt
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  subscribe      Boolean   @default(false)
   sessions       Session[]
-
 }
+
 
 model PushToken {
   id         String   @id @default(cuid())

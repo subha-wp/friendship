@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import { ArrowLeft, Settings } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { profiles } from "@/data/profiles";
@@ -27,9 +27,6 @@ export default async function UserProfilePage() {
           <Link href="/">
             <ArrowLeft className="h-6 w-6" />
           </Link>
-        </Button>
-        <Button variant="ghost" size="icon" className="text-white">
-          <Settings className="h-6 w-6" />
         </Button>
       </div>
 

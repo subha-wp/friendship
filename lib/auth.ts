@@ -19,8 +19,7 @@ export const lucia = new Lucia(adapter, {
       id: attributes.id,
       email: attributes.email,
       name: attributes.name,
-      avatarUrl: attributes.avatarUrl,
-      role: attributes.role,
+      subscribe: attributes.subscribe,
     };
   },
 });
@@ -37,8 +36,7 @@ interface DatabaseUserAttributes {
   email: string;
   hashedPassword: string;
   name: string;
-  avatarUrl: string;
-  role: string;
+  subscribe: null | undefined | false;
 }
 
 export const validateRequest = cache(
