@@ -1,14 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
+"use client";
+
+import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import { validateRequest } from "@/lib/auth";
 import Link from "next/link";
+import { PaymentDialog } from "./payment-dialog";
 
 interface ProfileCardProps {
   id: string;
@@ -17,27 +14,26 @@ interface ProfileCardProps {
   location: string;
   imageUrl: string;
   matchPercentage?: number;
+  isSubscribed?: boolean;
 }
 
-export async function ProfileCard({
+export function ProfileCard({
   id,
   name,
   age,
   location,
   imageUrl,
   matchPercentage = 100,
+  isSubscribed = false,
 }: ProfileCardProps) {
-  const { user } = await validateRequest();
-  const isSubscribe = user?.subscribe;
+  const [isPaymentOpen, setIsPaymentOpen] = useState(false);
 
   return (
     <Card className="relative mx-auto max-w-sm overflow-hidden rounded-3xl">
-      {/* Match Label */}
       <div className="absolute left-0 top-0 z-20 font-semibold rounded-full bg-white/90 px-2 py-1 text-xs">
         {matchPercentage}% Match
       </div>
 
-      {/* Main Image with Gradient Overlay */}
       <div className="relative aspect-[3/4] w-full overflow-hidden">
         <div className="absolute inset-0 z-10 bg-gradient-to-b from-transparent via-purple-500/20 to-purple-900/90" />
         <img
@@ -46,7 +42,6 @@ export async function ProfileCard({
           className="h-full w-full object-cover"
         />
 
-        {/* Profile Info Overlay */}
         <div className="absolute bottom-0 left-0 z-10 w-full p-2 text-white">
           <div className="mb-1 text-xl font-semibold">
             {name}, {age}
@@ -55,8 +50,7 @@ export async function ProfileCard({
             {location}
           </div>
 
-          {/* Button - Conditional Rendering */}
-          {isSubscribe ? (
+          {isSubscribed ? (
             <Button
               variant="default"
               className="mt-3 w-full font-semibold text-sm rounded-2xl uppercase"
@@ -64,27 +58,22 @@ export async function ProfileCard({
               <Link href={`/profile/${id}`}>Get Details</Link>
             </Button>
           ) : (
-            <Dialog>
-              <DialogTrigger asChild>
-                <Button
-                  variant="secondary"
-                  className="mt-3 w-full font-semibold text-sm rounded-2xl text-purple-600"
-                >
-                  Subscribe & Talk
-                </Button>
-              </DialogTrigger>
-              <DialogContent className="text-center p-6">
-                <DialogTitle className="text-lg font-semibold">
-                  Payment Form
-                </DialogTitle>
-                <p className="text-gray-600">
-                  Implement your payment form here.
-                </p>
-              </DialogContent>
-            </Dialog>
+            <Button
+              variant="secondary"
+              className="mt-3 w-full font-semibold text-sm rounded-2xl text-purple-600"
+              onClick={() => setIsPaymentOpen(true)}
+            >
+              Subscribe & Talk
+            </Button>
           )}
         </div>
       </div>
+
+      <PaymentDialog
+        open={isPaymentOpen}
+        onOpenChange={setIsPaymentOpen}
+        profileId={id}
+      />
     </Card>
   );
 }
